@@ -9,13 +9,24 @@ interface PropTypes {
   edges:    Array<EdgeT>;
 }
 
+export const GraphContext = React.createContext({
+  getLeft: (): number => 0,
+  getTop:  (): number => 0
+});
+
 const Graph = ({ vertices, edges }: PropTypes) => {
-  const elRef = useRef(null);
+  const elRef = useRef({ offsetLeft: 0, offsetTop: 0 });
+  const getLeft = () => elRef.current.offsetLeft;
+  const getTop  = () => elRef.current.offsetTop;
 
   return (
     <Container ref={elRef}>
-      <Vertices items={vertices} container={elRef} />
-      <Edges items={edges} container={elRef} />
+      <GraphContext.Provider value={{
+        getLeft, getTop
+      }}>
+        <Vertices items={vertices} />
+        <Edges items={edges} container={elRef} />
+      </GraphContext.Provider>
     </Container>
   );
 };

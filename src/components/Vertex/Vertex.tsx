@@ -1,22 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { useRecoilState } from 'recoil';
-import { Atom, Ref } from '../../types';
-import { get } from '../../utils';
+import { Atom } from '../../types';
+import { GraphContext } from '../Graph';
 import { Node } from './styles';
 
 interface PropTypes {
-  vAtom:     Atom;
-  container: Ref;
+  vAtom: Atom;
 }
 
-const Vertex = ({ vAtom, container }: PropTypes) => {
+const Vertex = ({ vAtom }: PropTypes) => {
+  const { getLeft, getTop } = useContext(GraphContext);
   const lastPosition = useRef({ x: 0, y: 0 });
   const [vectorState, setVectorState] = useRecoilState(vAtom);
   const [isDragging, setIsDragging] = useState(false);
 
   const getMousePosition = (e: MouseEvent) => ({
-    x: e.clientX - get(['current', 'offsetLeft'])(container, 0),
-    y: e.clientY - get(['current', 'offsetTop'])(container, 0)
+    x: e.clientX - getLeft(),
+    y: e.clientY - getTop()
   });
 
   const handleMouseDown = (e: MouseEvent) => {
