@@ -14,7 +14,8 @@ const edges = [
   { from: 'A', to: 'B' },
   { from: 'A', to: 'C' },
   { from: 'B', to: 'C' },
-  { from: 'B', to: 'D' }
+  { from: 'B', to: 'D' },
+  { from: 'C', to: 'D' }
 ];
 
 const App = () => (

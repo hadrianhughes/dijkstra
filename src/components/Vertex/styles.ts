@@ -3,8 +3,9 @@ import styled from 'styled-components';
 const SIZE = 50;
 
 export const Node = styled.div`
-  background-color: red;
+  background-color: #585858;
   border-radius: 50%;
+  color: white;
   cursor: pointer;
   font-size: 18px;
   height: ${SIZE}px;
