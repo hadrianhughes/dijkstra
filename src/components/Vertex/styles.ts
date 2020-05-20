@@ -10,9 +10,4 @@ export const Node = styled.div`
   position: absolute;
   transform: translate(-50%, -50%);
   width:  ${SIZE}px;
-
-  ${props => css`
-    left: ${props.x}px;
-    top:  ${props.y}px;
-    `}
 `;

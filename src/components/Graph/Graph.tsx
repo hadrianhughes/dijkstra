@@ -5,16 +5,19 @@ import { get } from '../../utils';
 import { Atom } from '../../types';
 import Vertex from '../Vertex';
 
+const getOffsetLeft = get(['current', 'offsetLeft']);
+const getOffsetTop = get(['current', 'offsetTop']);
+
 const Graph = () => {
   const idCounter               = useRef(0);
   const elRef                   = useRef(null);
   const [vertices, setVertices] = useState(([] as Array<Atom>))
 
   const addVertex = e => {
-    const elLeft  = get(['current', 'offsetLeft'])(elRef, 0);
-    const elTop   = get(['current', 'offsetTop'])(elRef, 0);
-    const clickX  = e.clientX - elLeft;
-    const clickY  = e.clientY - elTop;
+    const elLeft = getOffsetLeft(elRef, 0);
+    const elTop  = getOffsetTop(elRef, 0);
+    const clickX = e.clientX - elLeft;
+    const clickY = e.clientY - elTop;
     idCounter.current += 1;
 
     setVertices([
@@ -35,7 +38,11 @@ const Graph = () => {
       ref={elRef}>
       {
         vertices.map(a => (
-          <Vertex key={a.key} vAtom={a} />
+          <Vertex
+            key={a.key}
+            vAtom={a}
+            leftEdge={getOffsetLeft(elRef, 0)}
+            topEdge={getOffsetTop(elRef, 0)}/>
         ))
       }
     </Container>
