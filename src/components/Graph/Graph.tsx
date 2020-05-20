@@ -24,8 +24,8 @@ const Graph = ({ vertices, edges }: PropTypes) => {
       <GraphContext.Provider value={{
         getLeft, getTop
       }}>
-        <Vertices items={vertices} />
         <Edges items={edges} container={elRef} />
+        <Vertices items={vertices} />
       </GraphContext.Provider>
     </Container>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Atom } from '../../types';
+import { Line } from './styles';
 
 interface PropTypes {
   from: Atom;
@@ -14,7 +15,14 @@ const Edge = ({ from, to }: PropTypes) => {
   console.log(`from: ${JSON.stringify(fromValue)}`);
   console.log(`to: ${JSON.stringify(toValue)}`);
 
-  return <div></div>;
+  return (
+    <Line style={{
+      left: fromValue.x,
+      top: fromValue.y,
+      width: toValue.x - fromValue.x,
+      height: toValue.y - fromValue.y
+    }} />
+  );
 };
 
 export default Edge;
