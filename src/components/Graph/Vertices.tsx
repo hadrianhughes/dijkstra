@@ -12,7 +12,8 @@ const Vertices = ({ items }: PropTypes) => (
         .map(k => (
           <Vertex
             key={items[k].key}
-            vAtom={items[k]} />
+            vAtom={items[k]}
+            name={k} />
         ))
     }
   </>

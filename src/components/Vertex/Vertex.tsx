@@ -6,9 +6,10 @@ import { Node } from './styles';
 
 interface PropTypes {
   vAtom: Atom;
+  name:  string;
 }
 
-const Vertex = ({ vAtom }: PropTypes) => {
+const Vertex = ({ vAtom, name }: PropTypes) => {
   const { getLeft, getTop } = useContext(GraphContext);
   const lastPosition = useRef({ x: 0, y: 0 });
   const [vectorState, setVectorState] = useRecoilState(vAtom);
@@ -46,7 +47,7 @@ const Vertex = ({ vAtom }: PropTypes) => {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
-      onClick={e => e.stopPropagation()}></Node>
+      onClick={e => e.stopPropagation()}>{name}</Node>
   );
 };
 

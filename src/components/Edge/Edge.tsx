@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Atom } from '../../types';
+import { greater, lesser, xor } from '../../utils';
 import { Line } from './styles';
 
 interface PropTypes {
@@ -12,16 +13,15 @@ const Edge = ({ from, to }: PropTypes) => {
   const fromValue = useRecoilValue(from);
   const toValue   = useRecoilValue(to);
 
-  console.log(`from: ${JSON.stringify(fromValue)}`);
-  console.log(`to: ${JSON.stringify(toValue)}`);
+  const left   = lesser(fromValue.x, toValue.x);
+  const top    = lesser(fromValue.y, toValue.y);
+  const width  = greater(fromValue.x, toValue.x) - left;
+  const height = greater(fromValue.y, toValue.y) - top;
 
   return (
-    <Line style={{
-      left: fromValue.x,
-      top: fromValue.y,
-      width: toValue.x - fromValue.x,
-      height: toValue.y - fromValue.y
-    }} />
+    <Line
+      style={{ left, top, width, height }}
+      backward={xor(left === toValue.x, top === toValue.y)} />
   );
 };
 
