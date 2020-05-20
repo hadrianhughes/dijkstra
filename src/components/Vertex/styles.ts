@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const SIZE = 50;
 
@@ -14,4 +14,6 @@ export const Node = styled.div`
   text-align: center;
   transform: translate(-50%, -50%);
   width:  ${SIZE}px;
+
+  ${props => props.selected ? css`background-color: #53d853;` : ''}
 `;

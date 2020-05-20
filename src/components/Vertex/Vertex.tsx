@@ -1,19 +1,22 @@
 import React, { useState, useRef, useContext } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Atom } from '../../types';
 import { GraphContext } from '../Graph';
 import { Node } from './styles';
 
 interface PropTypes {
-  vAtom: Atom;
-  name:  string;
+  vAtom:    Atom;
+  name:     string;
+  fromAtom: Atom;
 }
 
-const Vertex = ({ vAtom, name }: PropTypes) => {
+const Vertex = ({ vAtom, name, fromAtom }: PropTypes) => {
   const { getLeft, getTop } = useContext(GraphContext);
   const lastPosition = useRef({ x: 0, y: 0 });
-  const [vectorState, setVectorState] = useRecoilState(vAtom);
   const [isDragging, setIsDragging] = useState(false);
+
+  const [vectorState, setVectorState] = useRecoilState(vAtom);
+  const from = useRecoilValue(fromAtom);
 
   const getMousePosition = (e: MouseEvent) => ({
     x: e.clientX - getLeft(),
@@ -47,7 +50,8 @@ const Vertex = ({ vAtom, name }: PropTypes) => {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
-      onClick={e => e.stopPropagation()}>{name}</Node>
+      onClick={e => e.stopPropagation()}
+      selected={from === name}>{name}</Node>
   );
 };
 

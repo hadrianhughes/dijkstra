@@ -16,7 +16,7 @@ export const GraphContext = React.createContext({
 });
 
 const Graph = ({ vertices, edges }: PropTypes) => {
-  const elRef = useRef({ offsetLeft: 0, offsetTop: 0 });
+  const elRef   = useRef({ offsetLeft: 0, offsetTop: 0 });
   const getLeft = () => elRef.current.offsetLeft;
   const getTop  = () => elRef.current.offsetTop;
 
@@ -51,8 +51,11 @@ const Graph = ({ vertices, edges }: PropTypes) => {
           options={Object.keys(vertices)}
           fromAtom={fromState}
           toAtom={toState} />
-        <Edges items={realEdges} container={elRef} />
-        <Vertices items={vertexStates} />
+        <Edges
+          items={realEdges} />
+        <Vertices
+          items={vertexStates}
+          fromAtom={fromState} />
       </GraphContext.Provider>
     </Container>
   );

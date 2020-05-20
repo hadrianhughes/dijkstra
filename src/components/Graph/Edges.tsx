@@ -4,7 +4,6 @@ import Edge from '../Edge';
 
 interface PropTypes {
   items: Array<EdgeT>;
-  container: Ref;
 }
 
 const Edges = ({ items }: PropTypes) => (

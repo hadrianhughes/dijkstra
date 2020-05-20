@@ -1,11 +1,13 @@
 import React from 'react';
+import { Atom } from '../../types';
 import Vertex from '../Vertex';
 
 interface PropTypes {
-  items: object;
+  items:    object;
+  fromAtom: Atom;
 }
 
-const Vertices = ({ items }: PropTypes) => (
+const Vertices = ({ items, fromAtom }: PropTypes) => (
   <>
     {
       Object.keys(items)
@@ -13,7 +15,8 @@ const Vertices = ({ items }: PropTypes) => (
           <Vertex
             key={items[k].key}
             vAtom={items[k]}
-            name={k} />
+            name={k}
+            fromAtom={fromAtom} />
         ))
     }
   </>
