@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 import { Container } from './styles';
 import Vertices from './Vertices';
 import Edges from './Edges';
+import Controls from './Controls';
 
 interface PropTypes {
   vertices: object;
@@ -18,6 +19,16 @@ const Graph = ({ vertices, edges }: PropTypes) => {
   const elRef = useRef({ offsetLeft: 0, offsetTop: 0 });
   const getLeft = () => elRef.current.offsetLeft;
   const getTop  = () => elRef.current.offsetTop;
+
+  const fromState = atom({
+    key: 'vertex_from',
+    default: Object.keys(vertices)[0]
+  });
+
+  const toState = atom({
+    key: 'vertex_to',
+    default: Object.keys(vertices)[1]
+  });
 
   const vertexStates =
     Object.keys(vertices)
@@ -36,6 +47,10 @@ const Graph = ({ vertices, edges }: PropTypes) => {
       <GraphContext.Provider value={{
         getLeft, getTop
       }}>
+        <Controls
+          options={Object.keys(vertices)}
+          fromAtom={fromState}
+          toAtom={toState} />
         <Edges items={realEdges} container={elRef} />
         <Vertices items={vertexStates} />
       </GraphContext.Provider>

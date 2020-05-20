@@ -11,6 +11,7 @@ export const Node = styled.div`
   height: ${SIZE}px;
   line-height: 50px;
   position: absolute;
+  text-align: center;
   transform: translate(-50%, -50%);
   width:  ${SIZE}px;
 `;
