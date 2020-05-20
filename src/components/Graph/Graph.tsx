@@ -1,32 +1,26 @@
 import React, { useRef } from 'react';
-import { atom } from 'recoil';
+import { Edge } from '../../types';
 import { Container } from './styles';
 import Vertex from '../Vertex';
 
-const makeVertex = (key: string, x: number, y: number) => atom({
-  key,
-  default: { x, y }
-});
+interface PropTypes {
+  vertices: object;
+  edges:    Array<Edge>;
+}
 
-const vertices = [
-  makeVertex('vertex0', 150, 75),
-  makeVertex('vertex1', 340, 100),
-  makeVertex('vertex2', 530, 270),
-  makeVertex('vertex3', 710, 660)
-];
-
-const Graph = () => {
+const Graph = ({ vertices, edges }: PropTypes) => {
   const elRef = useRef(null);
 
   return (
     <Container ref={elRef}>
       {
-        vertices.map(a => (
-          <Vertex
-            key={a.key}
-            vAtom={a}
-            container={elRef} />
-        ))
+        Object.keys(vertices)
+          .map(k => (
+            <Vertex
+              key={vertices[k].key}
+              vAtom={vertices[k]}
+              container={elRef} />
+          ))
       }
     </Container>
   );
