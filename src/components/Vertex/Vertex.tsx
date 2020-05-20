@@ -8,15 +8,17 @@ interface PropTypes {
   vAtom:    Atom;
   name:     string;
   fromAtom: Atom;
+  toAtom:   Atom;
 }
 
-const Vertex = ({ vAtom, name, fromAtom }: PropTypes) => {
+const Vertex = ({ vAtom, name, fromAtom, toAtom }: PropTypes) => {
   const { getLeft, getTop } = useContext(GraphContext);
   const lastPosition = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   const [vectorState, setVectorState] = useRecoilState(vAtom);
   const from = useRecoilValue(fromAtom);
+  const to   = useRecoilValue(toAtom);
 
   const getMousePosition = (e: MouseEvent) => ({
     x: e.clientX - getLeft(),
@@ -51,7 +53,8 @@ const Vertex = ({ vAtom, name, fromAtom }: PropTypes) => {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
       onClick={e => e.stopPropagation()}
-      selected={from === name}>{name}</Node>
+      fromSelected={from === name}
+      toSelected={to === name}>{name}</Node>
   );
 };
 

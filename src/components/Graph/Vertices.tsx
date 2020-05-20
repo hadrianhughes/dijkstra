@@ -5,9 +5,10 @@ import Vertex from '../Vertex';
 interface PropTypes {
   items:    object;
   fromAtom: Atom;
+  toAtom:   Atom;
 }
 
-const Vertices = ({ items, fromAtom }: PropTypes) => (
+const Vertices = ({ items, fromAtom, toAtom }: PropTypes) => (
   <>
     {
       Object.keys(items)
@@ -16,7 +17,8 @@ const Vertices = ({ items, fromAtom }: PropTypes) => (
             key={items[k].key}
             vAtom={items[k]}
             name={k}
-            fromAtom={fromAtom} />
+            fromAtom={fromAtom}
+            toAtom={toAtom} />
         ))
     }
   </>

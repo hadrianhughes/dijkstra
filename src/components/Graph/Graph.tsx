@@ -55,7 +55,8 @@ const Graph = ({ vertices, edges }: PropTypes) => {
           items={realEdges} />
         <Vertices
           items={vertexStates}
-          fromAtom={fromState} />
+          fromAtom={fromState}
+          toAtom={toState} />
       </GraphContext.Provider>
     </Container>
   );

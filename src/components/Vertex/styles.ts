@@ -15,5 +15,6 @@ export const Node = styled.div`
   transform: translate(-50%, -50%);
   width:  ${SIZE}px;
 
-  ${props => props.selected ? css`background-color: #53d853;` : ''}
+  ${props => props.fromSelected ? css`background-color: #53d853;` : ''}
+  ${props => props.toSelected ? css`background-color: #ff3c3c;` : ''}
 `;
