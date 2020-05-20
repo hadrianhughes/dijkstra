@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 import { Container } from './styles';
 import { get } from '../../utils';
 import { Atom } from '../../types';
+import Vertex from '../Vertex';
 
 const Graph = () => {
   const idCounter               = useRef(0);
@@ -34,7 +35,7 @@ const Graph = () => {
       ref={elRef}>
       {
         vertices.map(a => (
-          <div>{a.key}</div>
+          <Vertex key={a.key} vAtom={a} />
         ))
       }
     </Container>

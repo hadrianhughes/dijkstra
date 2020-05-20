@@ -7,5 +7,6 @@ export const Container = styled.div`
   border: 1px solid black;
   height: ${HEIGHT}px;
   margin: 0 auto;
+  position: relative;
   width:  ${WIDTH}px;
 `;
