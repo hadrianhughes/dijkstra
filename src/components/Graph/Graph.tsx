@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Edge } from '../../types';
 import { Container } from './styles';
-import Vertex from '../Vertex';
+import Vertices from './Vertices';
 
 interface PropTypes {
   vertices: object;
@@ -13,15 +13,7 @@ const Graph = ({ vertices, edges }: PropTypes) => {
 
   return (
     <Container ref={elRef}>
-      {
-        Object.keys(vertices)
-          .map(k => (
-            <Vertex
-              key={vertices[k].key}
-              vAtom={vertices[k]}
-              container={elRef} />
-          ))
-      }
+      <Vertices items={vertices} container={elRef} />
     </Container>
   );
 };
