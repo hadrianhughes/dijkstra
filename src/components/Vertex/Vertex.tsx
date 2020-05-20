@@ -4,9 +4,9 @@ import { Atom } from '../../types';
 import { Node } from './styles';
 
 interface PropTypes {
-  vAtom: Atom;
+  vAtom:    Atom;
   leftEdge: number;
-  topEdge: number;
+  topEdge:  number;
 }
 
 const Vertex = ({ vAtom, leftEdge, topEdge }: PropTypes) => {
