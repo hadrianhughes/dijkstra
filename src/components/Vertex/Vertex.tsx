@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { Atom } from '../../types';
 import { Node } from './styles';
@@ -10,23 +10,41 @@ interface PropTypes {
 }
 
 const Vertex = ({ vAtom, leftEdge, topEdge }: PropTypes) => {
-  const [state, setState] = useRecoilState(vAtom);
+  const lastPosition = useRef({ x: 0, y: 0 });
+  const [vectorState, setVectorState] = useRecoilState(vAtom);
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleMouseMove = e => {
-    if (isDragging) {
-      const newX = e.clientX - leftEdge;
-      const newY = e.clientY - topEdge;
+  const getMousePosition = (e: MouseEvent) => ({
+    x: e.clientX - leftEdge,
+    y: e.clientY - topEdge
+  });
 
-      setState({ x: newX, y: newY });
+  const handleMouseDown = (e: MouseEvent) => {
+    lastPosition.current = getMousePosition(e);
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = (e: MouseEvent) => {
+    setIsDragging(false);
+
+    const { x, y } = getMousePosition(e);
+    if (x === lastPosition.current.x ||
+        y === lastPosition.current.y) {
+      console.log('was a click');
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging) {
+      setVectorState(getMousePosition(e));
     }
   };
 
   return (
     <Node
-      style={{ left: `${state.x}px`, top: `${state.y}px` }}
-      onMouseDown={() => setIsDragging(true)}
-      onMouseUp={() => setIsDragging(false)}
+      style={{ left: `${vectorState.x}px`, top: `${vectorState.y}px` }}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
       onClick={e => e.stopPropagation()}></Node>
   );
