@@ -1,6 +1,6 @@
 import React from 'react';
 import { atom } from 'recoil';
-import { Atom, Edge } from './types';
+import { Atom, EdgeT } from './types';
 import './App.css';
 import Graph from './components/Graph';
 import { RecoilRoot } from 'recoil';
@@ -11,7 +11,7 @@ const makeVertex = (key: string, x: number, y: number): Atom => atom({
   default: { x, y }
 });
 
-const makeEdge = (vs: object) => (from: string, to: string): Edge => ({ from: vs[from], to: vs[to] });
+const makeEdge = (vs: object) => (from: string, to: string): EdgeT => ({ from: vs[from], to: vs[to] });
 
 const vertices = {
   A: makeVertex('vertex0', 150, 75),

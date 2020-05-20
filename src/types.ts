@@ -7,7 +7,7 @@ export type Ref = {
   current: any;
 };
 
-export type Edge = {
+export type EdgeT = {
   from: Atom;
   to:   Atom;
 };
