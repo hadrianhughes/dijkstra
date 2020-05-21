@@ -1,17 +1,15 @@
+import { PathMap } from '../../types';
+
 type Position = { x: number, y: number };
 
 type Vertices = {
   [name: string]: Position;
 };
 
-type PathMap = {
-  [vertex: string]: [number, string];
-};
-
 export const getDistance = (from: Position) => (to: Position): number =>
   Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
 
-const dijkstra = (
+export const dijkstra = (
   vertices: Vertices,
   edges:    Array<{ from: string, to: string }>
 ): PathMap => {
@@ -56,4 +54,14 @@ const dijkstra = (
   return pathMap;
 };
 
-export default dijkstra;
+export const getPath = (
+  pathMap:     PathMap,
+  to:          string,
+  accumulator: string = ''
+): string => {
+  if (to === '')          return accumulator;
+  if (accumulator === '') return getPath(pathMap, to, to);
+
+  const nextStep = pathMap[to][1];
+  return getPath(pathMap, nextStep, `${nextStep}${accumulator}`);
+};

@@ -11,3 +11,7 @@ export type EdgeT = {
   from: Atom;
   to:   Atom;
 };
+
+export type PathMap = {
+  [vertex: string]: [number, string];
+};

@@ -1,23 +1,24 @@
 import React, { ReactNode, useRef } from 'react';
 import { atom, selector, useRecoilValue } from 'recoil';
-import { Atom, EdgeT } from '../../types';
+import { Atom, EdgeT, PathMap } from '../../types';
 import { Container } from './styles';
-import dijkstra from './algorithm';
+import { dijkstra, getPath } from './algorithm';
 
 interface DijkstraProperties {
   getLeft:   () => number;
   getTop:    () => number;
-  fromAtom?: Atom;
   toAtom?:   Atom;
   vertices:  object;
   edges:     Array<EdgeT>;
+  paths:     PathMap;
 }
 
 const initialState: DijkstraProperties = {
   getLeft:  () => 0,
   getTop:   () => 0,
   vertices: {},
-  edges:    []
+  edges:    [],
+  paths:    {}
 };
 
 export const DijkstraContext = React.createContext(initialState);
@@ -32,11 +33,6 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
   const containerRef = useRef({ offsetLeft: 0, offsetTop: 0 });
   const getLeft = () => containerRef.current.offsetLeft;
   const getTop  = () => containerRef.current.offsetTop;
-
-  const fromAtom = atom({
-    key:     'vertex_from',
-    default: Object.keys(verticesConfig)[0]
-  });
 
   const toAtom = atom({
     key:     'vertex_to',
@@ -68,15 +64,23 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
       return dijkstra(vertexPositions, edgesConfig);
     }
   });
+  // const testage = useRecoilValue(paths);
+  // console.log(getPath(testage, 'D'));
+
+  // const activePath = selector({
+    // key: 'active_path',
+    // get: ({ get }) => {
+    // }
+  // });
 
   return (
     <DijkstraContext.Provider value={{
       getLeft,
       getTop,
-      fromAtom,
       toAtom,
       vertices,
-      edges
+      edges,
+      paths
     }}>
       <Container ref={containerRef}>
         {children}

@@ -8,15 +8,8 @@ interface PropTypes {
 }
 
 const Controls = ({ options }) => {
-  const { fromAtom, toAtom } = useContext(DijkstraContext);
-  const [from, setFrom] = useRecoilState(fromAtom);
+  const { toAtom } = useContext(DijkstraContext);
   const [to, setTo]     = useRecoilState(toAtom);
-
-  const fromOptions = options.map(o => ({
-    id:       o,
-    text:     o,
-    selected: o === from
-  }));
 
   const toOptions = options.map(o => ({
     id:       o,
@@ -26,10 +19,6 @@ const Controls = ({ options }) => {
 
   return (
     <section>
-      <Selector
-        label="From:"
-        options={fromOptions}
-        onChange={setFrom} />
       <Selector
         label="To:"
         options={toOptions}

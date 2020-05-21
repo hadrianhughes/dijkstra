@@ -3,7 +3,7 @@ import { DijkstraContext } from '../Dijkstra';
 import Vertex from './Vertex';
 
 const Vertices = () => {
-  const { vertices, fromAtom, toAtom } = useContext(DijkstraContext);
+  const { vertices, toAtom } = useContext(DijkstraContext);
 
   return (
     <>
@@ -14,7 +14,6 @@ const Vertices = () => {
               key={k}
               vAtom={vertices[k]}
               name={k}
-              fromAtom={fromAtom}
               toAtom={toAtom} />
           ))
       }

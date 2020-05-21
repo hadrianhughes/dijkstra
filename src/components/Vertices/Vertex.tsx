@@ -7,17 +7,15 @@ import { Node } from './styles';
 interface PropTypes {
   vAtom:     Atom;
   name:      string;
-  fromAtom?: Atom;
   toAtom?:   Atom;
 }
 
-const Vertex = ({ vAtom, name, fromAtom, toAtom }: PropTypes) => {
+const Vertex = ({ vAtom, name, toAtom }: PropTypes) => {
   const { getLeft, getTop } = useContext(DijkstraContext);
   const lastPosition = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
   const [vectorState, setVectorState] = useRecoilState(vAtom);
-  const from = useRecoilValue(fromAtom);
   const to   = useRecoilValue(toAtom);
 
   const getMousePosition = (e: MouseEvent) => ({
@@ -53,7 +51,7 @@ const Vertex = ({ vAtom, name, fromAtom, toAtom }: PropTypes) => {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
       onClick={e => e.stopPropagation()}
-      fromSelected={from === name}
+      fromSelected={name === 'A'}
       toSelected={to === name}>{name}</Node>
   );
 };
