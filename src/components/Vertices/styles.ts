@@ -13,6 +13,7 @@ export const Node = styled.div`
   position: absolute;
   text-align: center;
   transform: translate(-50%, -50%);
+  user-select: none;
   width:  ${SIZE}px;
 
   ${props => props.fromSelected ? css`background-color: #53d853;` : ''}
