@@ -1,7 +1,8 @@
 import React, { ReactNode, useRef } from 'react';
-import { atom } from 'recoil';
+import { atom, selector, useRecoilValue } from 'recoil';
 import { Atom, EdgeT } from '../../types';
 import { Container } from './styles';
+import dijkstra from './algorithm';
 
 interface DijkstraProperties {
   getLeft:   () => number;
@@ -53,6 +54,22 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
     from: vertices[e.from],
     to:   vertices[e.to]
   }));
+
+  const paths = selector({
+    key: 'paths',
+    get: ({ get }) => {
+      const vertexPositions =
+        Object.keys(vertices)
+          .reduce((acc, k) => ({
+            ...acc,
+            [k]: get(vertices[k])
+          }), {});
+
+      return dijkstra(vertexPositions, edgesConfig);
+    }
+  });
+  const testage = useRecoilValue(paths);
+  console.log(testage);
 
   return (
     <DijkstraContext.Provider value={{

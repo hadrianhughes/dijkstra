@@ -11,6 +11,7 @@ const Vertices = () => {
         Object.keys(vertices)
           .map(k => (
             <Vertex
+              key={k}
               vAtom={vertices[k]}
               name={k}
               fromAtom={fromAtom}
