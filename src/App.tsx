@@ -11,6 +11,8 @@ const vertices = {
   B: { x: 340, y: 100 },
   C: { x: 530, y: 270 },
   D: { x: 710, y: 660 },
+  E: { x: 410, y: 720 },
+  F: { x: 500, y: 150 }
 };
 
 const edges = [
@@ -18,7 +20,11 @@ const edges = [
   { from: 'A', to: 'C' },
   { from: 'B', to: 'C' },
   { from: 'B', to: 'D' },
-  { from: 'C', to: 'D' }
+  { from: 'C', to: 'D' },
+  { from: 'A', to: 'E' },
+  { from: 'D', to: 'E' },
+  { from: 'C', to: 'F' },
+  { from: 'B', to: 'F' }
 ];
 
 const App = () => (

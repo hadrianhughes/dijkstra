@@ -22,8 +22,18 @@ export const dijkstra = (
   while (visited.length < vertexNames.length) {
     const neighbours =
       edges
-        .filter(e => visited.indexOf(e.to) < 0 && e.from === at)
-        .map(e => e.to);
+        .filter(e => {
+          if (e.from === at && visited.indexOf(e.to) < 0) {
+            return true;
+          }
+
+          if (e.to === at && visited.indexOf(e.from) < 0) {
+            return true;
+          }
+
+          return false;
+        })
+        .map(e => (e.to === at ? e.from : e.to));
 
     const distances =
       neighbours
