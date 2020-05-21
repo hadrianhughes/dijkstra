@@ -1,24 +1,23 @@
 import React, { ReactNode, useRef } from 'react';
-import { atom, selector, useRecoilValue } from 'recoil';
-import { Atom, EdgeT, PathMap } from '../../types';
+import { atom, selector } from 'recoil';
+import { Atom, EdgeT } from '../../types';
 import { Container } from './styles';
 import { dijkstra, getPath } from './algorithm';
 
 interface DijkstraProperties {
-  getLeft:   () => number;
-  getTop:    () => number;
-  toAtom?:   Atom;
-  vertices:  object;
-  edges:     Array<EdgeT>;
-  paths:     PathMap;
+  getLeft:     () => number;
+  getTop:      () => number;
+  toAtom?:     Atom;
+  vertices:    object;
+  edges:       Array<EdgeT>;
+  pathAtom?: Atom;
 }
 
 const initialState: DijkstraProperties = {
   getLeft:  () => 0,
   getTop:   () => 0,
   vertices: {},
-  edges:    [],
-  paths:    {}
+  edges:    []
 };
 
 export const DijkstraContext = React.createContext(initialState);
@@ -43,7 +42,13 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
     Object.keys(verticesConfig)
       .reduce((acc, k) => ({
         ...acc,
-        [k]: atom({ key: `vertex_${k}`, default: verticesConfig[k] })
+        [k]: atom({
+          key: `vertex_${k}`,
+          default: {
+            ...verticesConfig[k],
+            name: k
+          }
+        })
       }), {});
 
   const edges = edgesConfig.map(e => ({
@@ -64,14 +69,11 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
       return dijkstra(vertexPositions, edgesConfig);
     }
   });
-  // const testage = useRecoilValue(paths);
-  // console.log(getPath(testage, 'D'));
 
-  // const activePath = selector({
-    // key: 'active_path',
-    // get: ({ get }) => {
-    // }
-  // });
+  const pathAtom = selector({
+    key: 'active_path',
+    get: ({ get }) => getPath(get(paths), get(toAtom))
+  });
 
   return (
     <DijkstraContext.Provider value={{
@@ -80,7 +82,7 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
       toAtom,
       vertices,
       edges,
-      paths
+      pathAtom
     }}>
       <Container ref={containerRef}>
         {children}

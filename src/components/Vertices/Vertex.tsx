@@ -30,17 +30,14 @@ const Vertex = ({ vAtom, name, toAtom }: PropTypes) => {
 
   const handleMouseUp = (e: MouseEvent) => {
     setIsDragging(false);
-
-    const { x, y } = getMousePosition(e);
-    if (x === lastPosition.current.x ||
-        y === lastPosition.current.y) {
-      console.log('was a click');
-    }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
-      setVectorState(getMousePosition(e));
+      setVectorState({
+        ...getMousePosition(e),
+        name
+      });
     }
   };
 

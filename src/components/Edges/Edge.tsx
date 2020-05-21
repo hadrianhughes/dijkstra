@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Atom } from '../../types';
 import { greater, lesser, xor } from '../../utils';
+import { DijkstraContext } from '../Dijkstra';
 import { Line } from './styles';
 
 interface PropTypes {
@@ -10,8 +11,13 @@ interface PropTypes {
 }
 
 const Edge = ({ from, to }: PropTypes) => {
+  const { pathAtom } = useContext(DijkstraContext);
+
   const fromValue = useRecoilValue(from);
   const toValue   = useRecoilValue(to);
+  const path      = useRecoilValue(pathAtom);
+
+  const active = path.includes(fromValue.name) && path.includes(toValue.name);
 
   const left   = lesser(fromValue.x, toValue.x);
   const top    = lesser(fromValue.y, toValue.y);
@@ -21,7 +27,8 @@ const Edge = ({ from, to }: PropTypes) => {
   return (
     <Line
       style={{ left, top, width, height }}
-      backward={xor(left === toValue.x, top === toValue.y)} />
+      backward={xor(left === toValue.x, top === toValue.y)}
+      active={active} />
   );
 };
 
