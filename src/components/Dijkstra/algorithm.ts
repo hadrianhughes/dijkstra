@@ -1,5 +1,3 @@
-import { greater } from '../../utils';
-
 type Position = { x: number, y: number };
 
 type Vertices = {
@@ -7,7 +5,7 @@ type Vertices = {
 };
 
 type PathMap = {
-  [fromTo: string]: string;
+  [vertex: string]: [number, string];
 };
 
 export const getDistance = (from: Position) => (to: Position): number =>
@@ -17,10 +15,13 @@ const dijkstra = (
   vertices: Vertices,
   edges:    Array<{ from: string, to: string }>
 ): PathMap => {
-  const _dijkstra = (
-    at:      string,
-    visited: Array<string>
-  ): PathMap => {
+  const vertexNames = Object.keys(vertices);
+
+  let pathMap: PathMap       = { [vertexNames[0]]: [0, ''] };
+  let at: string             = vertexNames[0];
+  let visited: Array<string> = [];
+
+  while (visited.length < vertexNames.length) {
     const neighbours =
       edges
         .filter(e => visited.indexOf(e.to) < 0 && e.from === at)
@@ -33,32 +34,26 @@ const dijkstra = (
           [n]: getDistance(vertices[at])(vertices[n])
         }), {});
 
-    const nextDistances =
-      neighbours
-        .reduce((acc, n) => ({
-          ...acc,
-          ..._dijkstra(
-                n,
-                visited.filter(x => x !== at))
-        }), {});
+    Object.keys(distances)
+      .forEach(d => {
+        const fullDistance = pathMap[at][0] + distances[d];
 
-    return {
-      ...nextDistances,
-      ...Object.keys(distances)
-        .reduce((acc, d) => {
-          if (!nextDistances[at + d]) {
-            return { ...acc, [at + d]: distances[d] };
-          }
+        if (!pathMap[d] || fullDistance < pathMap[d][0]) {
+          pathMap[d] = [fullDistance, at];
+        }
+      });
 
-          return {
-            ...acc,
-            [at + d]: greater(distances[d], nextDistances[at + d])
-          };
-        }, {})
-    };
-  };
+    const leastDistant =
+      Object.keys(distances)
+        .reduce((acc, d) => (
+          distances[d] < acc.delta ? { name: d, delta: Infinity } : acc
+        ), { name: '', delta: Infinity });
 
-  return _dijkstra(Object.keys(vertices)[0], []);
+    visited.push(at);
+    at = leastDistant.name;
+  }
+
+  return pathMap;
 };
 
 export default dijkstra;
