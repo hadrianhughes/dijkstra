@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import Graph from './components/Graph';
 import { RecoilRoot } from 'recoil';
 import DijkstraProvider from './components/Dijkstra';
+import Vertices from './components/Vertices';
+import Edges from './components/Edges';
+import Controls from './components/Controls';
 
 const vertices = {
   A: { x: 150, y: 750 },
@@ -22,10 +24,12 @@ const edges = [
 const App = () => (
   <div className="App">
     <RecoilRoot>
-      <DijkstraProvider>
-        <Graph
-          vertices={vertices}
-          edges={edges} />
+      <DijkstraProvider
+        verticesConfig={vertices}
+        edgesConfig={edges}>
+        <Edges />
+        <Vertices />
+        <Controls options={Object.keys(vertices)} />
       </DijkstraProvider>
     </RecoilRoot>
   </div>

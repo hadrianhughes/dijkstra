@@ -1,18 +1,18 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Atom } from '../../types';
-import { GraphContext } from '../Graph';
+import { DijkstraContext } from '../Dijkstra';
 import { Node } from './styles';
 
 interface PropTypes {
-  vAtom:    Atom;
-  name:     string;
-  fromAtom: Atom;
-  toAtom:   Atom;
+  vAtom:     Atom;
+  name:      string;
+  fromAtom?: Atom;
+  toAtom?:   Atom;
 }
 
 const Vertex = ({ vAtom, name, fromAtom, toAtom }: PropTypes) => {
-  const { getLeft, getTop } = useContext(GraphContext);
+  const { getLeft, getTop } = useContext(DijkstraContext);
   const lastPosition = useRef({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
 

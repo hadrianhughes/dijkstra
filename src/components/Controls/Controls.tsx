@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRecoilState } from 'recoil';
-import { Atom } from '../../types';
+import { DijkstraContext } from '../Dijkstra';
 import Selector from '../Selector';
 
 interface PropTypes {
-  options:  Array<string>;
-  fromAtom: Atom;
-  toAtom:   Atom;
+  options: Array<string>;
 }
 
-const Controls = ({ fromAtom, options, toAtom }: PropTypes) => {
+const Controls = ({ options }) => {
+  const { fromAtom, toAtom } = useContext(DijkstraContext);
   const [from, setFrom] = useRecoilState(fromAtom);
   const [to, setTo]     = useRecoilState(toAtom);
 
@@ -23,7 +22,7 @@ const Controls = ({ fromAtom, options, toAtom }: PropTypes) => {
     id:       o,
     text:     o,
     selected: o === to
-  }));
+  }))
 
   return (
     <section>
