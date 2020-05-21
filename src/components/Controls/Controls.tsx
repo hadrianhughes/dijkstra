@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useRecoilState } from 'recoil';
 import { DijkstraContext } from '../Dijkstra';
 import Selector from '../Selector';
+import { Wrapper, Text } from './styles';
 
 interface PropTypes {
   options: Array<string>;
@@ -18,12 +19,13 @@ const Controls = ({ options }) => {
   }))
 
   return (
-    <section>
+    <Wrapper>
       <Selector
         label="To:"
         options={toOptions}
         onChange={setTo} />
-    </section>
+      <Text>Try moving the vertices. The blue line indicates the shortest route from A to the selected vertex.</Text>
+    </Wrapper>
   );
 };
 
