@@ -8,7 +8,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   height: ${HEIGHT}px;
   margin: 0 auto;
-  overflow: none;
+  overflow: hidden;
   padding: 20px;
   position: relative;
   text-align: left;
