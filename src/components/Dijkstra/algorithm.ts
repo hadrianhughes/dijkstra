@@ -44,7 +44,7 @@ export const dijkstra = (
     const leastDistant =
       Object.keys(distances)
         .reduce((acc, d) => (
-          distances[d] < acc.delta ? { name: d, delta: Infinity } : acc
+          distances[d] < acc.delta ? { name: d, delta: distances[d] } : acc
         ), { name: '', delta: Infinity });
 
     visited.push(at);
