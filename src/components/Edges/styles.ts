@@ -5,15 +5,16 @@ export const Line = styled.div`
 
   ${props => {
     const color = props.active ? '#4AABFF' : '#a5a5a5';
+    const size  = props.active ? 5 : 2;
 
     if (props.backward) {
       return css`
-        background: linear-gradient(to bottom right, rgba(0,0,0,0) calc(50% - 2px), ${color}, rgba(0,0,0,0) calc(50% + 2px))
+        background: linear-gradient(to bottom right, rgba(0,0,0,0) calc(50% - ${size}px), ${color}, rgba(0,0,0,0) calc(50% + 2px))
       `;
     }
 
     return css`
-      background: linear-gradient(to top right, rgba(0,0,0,0) calc(50% - 2px), ${color}, rgba(0,0,0,0) calc(50% + 2px));
+      background: linear-gradient(to top right, rgba(0,0,0,0) calc(50% - ${size}px), ${color}, rgba(0,0,0,0) calc(50% + 2px));
     `;
   }}
 `;
