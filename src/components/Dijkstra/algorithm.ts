@@ -34,7 +34,7 @@ const dijkstra = (
         }), {});
 
     const nextDistances =
-      Object.keys(neighbours)
+      neighbours
         .reduce((acc, n) => ({
           ...acc,
           ..._dijkstra(
@@ -42,8 +42,9 @@ const dijkstra = (
                 visited.filter(x => x !== at))
         }), {});
 
-    return (
-      Object.keys(distances)
+    return {
+      ...nextDistances,
+      ...Object.keys(distances)
         .reduce((acc, d) => {
           if (!nextDistances[at + d]) {
             return { ...acc, [at + d]: distances[d] };
@@ -54,7 +55,7 @@ const dijkstra = (
             [at + d]: greater(distances[d], nextDistances[at + d])
           };
         }, {})
-    );
+    };
   };
 
   return _dijkstra(Object.keys(vertices)[0], []);

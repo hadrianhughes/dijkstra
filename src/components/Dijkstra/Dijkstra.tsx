@@ -68,8 +68,6 @@ const DijkstraProvider = ({ children, verticesConfig, edgesConfig }: PropTypes) 
       return dijkstra(vertexPositions, edgesConfig);
     }
   });
-  const testage = useRecoilValue(paths);
-  console.log(testage);
 
   return (
     <DijkstraContext.Provider value={{
