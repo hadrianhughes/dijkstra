@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Graph from './components/Graph';
 import { RecoilRoot } from 'recoil';
+import DijkstraProvider from './components/Dijkstra';
 
 const vertices = {
   A: { x: 150, y: 750 },
@@ -21,9 +22,11 @@ const edges = [
 const App = () => (
   <div className="App">
     <RecoilRoot>
-      <Graph
-        vertices={vertices}
-        edges={edges} />
+      <DijkstraProvider>
+        <Graph
+          vertices={vertices}
+          edges={edges} />
+      </DijkstraProvider>
     </RecoilRoot>
   </div>
 );
