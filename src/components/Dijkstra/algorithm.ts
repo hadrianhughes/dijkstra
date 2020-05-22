@@ -6,7 +6,7 @@ type Vertices = {
   [name: string]: Position;
 };
 
-export const getDistance = (from: Position) => (to: Position): number =>
+export const getDistance = (from: Position, to: Position): number =>
   Math.sqrt(Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2));
 
 export const dijkstra = (
@@ -42,7 +42,7 @@ export const dijkstra = (
 
           return {
             ...acc,
-            [neighbourKey]: getDistance(vertices[at])(vertices[neighbourKey])
+            [neighbourKey]: getDistance(vertices[at], vertices[neighbourKey])
           };
         }, {});
 
