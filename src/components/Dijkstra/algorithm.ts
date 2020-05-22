@@ -15,11 +15,15 @@ export const dijkstra = (
 ): PathMap => {
   const vertexNames = Object.keys(vertices);
 
-  let pathMap: PathMap       = { [vertexNames[0]]: [0, ''] };
-  let at: string             = vertexNames[0];
-  let visited: Array<string> = [];
+  const _dijkstra = (
+    pathMap: PathMap,
+    at: string,
+    visited: Array<string>
+  ): PathMap => {
+    if (visited.length >= vertexNames.length) {
+      return pathMap;
+    }
 
-  while (visited.length < vertexNames.length) {
     const neighbours =
       edges
         .filter(e => {
@@ -42,14 +46,20 @@ export const dijkstra = (
           [n]: getDistance(vertices[at])(vertices[n])
         }), {});
 
-    Object.keys(distances)
-      .forEach(d => {
-        const fullDistance = pathMap[at][0] + distances[d];
+    const newMap =
+      Object.keys(distances)
+        .reduce((acc, d) => {
+          const fullDistance = acc[at][0] + distances[d];
 
-        if (!pathMap[d] || fullDistance < pathMap[d][0]) {
-          pathMap[d] = [fullDistance, at];
-        }
-      });
+          if (!acc[d] || fullDistance < acc[d][0]) {
+            return ({
+              ...acc,
+              [d]: [fullDistance, at]
+            } as PathMap);
+          }
+
+          return acc;
+        }, pathMap);
 
     const leastDistant =
       Object.keys(distances)
@@ -57,11 +67,14 @@ export const dijkstra = (
           distances[d] < acc.delta ? { name: d, delta: distances[d] } : acc
         ), { name: '', delta: Infinity });
 
-    visited.push(at);
-    at = leastDistant.name;
-  }
+    return _dijkstra(newMap, leastDistant.name, [ ...visited, at ]);
+  };
 
-  return pathMap;
+  return _dijkstra(
+    { [vertexNames[0]]: [0, ''] },
+    vertexNames[0],
+    []
+  );
 };
 
 export const getPath = (
