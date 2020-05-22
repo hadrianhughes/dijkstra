@@ -37,19 +37,19 @@ export const dijkstra = (
 
           return false;
         })
-        .map(e => (e.to === at ? e.from : e.to));
+        .reduce((acc, e) => {
+          const neighbourKey = (e.to === at ? e.from : e.to);
 
-    const distances =
-      neighbours
-        .reduce((acc, n) => ({
-          ...acc,
-          [n]: getDistance(vertices[at])(vertices[n])
-        }), {});
+          return {
+            ...acc,
+            [neighbourKey]: getDistance(vertices[at])(vertices[neighbourKey])
+          };
+        }, {});
 
     const newMap =
-      Object.keys(distances)
+      Object.keys(neighbours)
         .reduce((acc, d) => {
-          const fullDistance = acc[at][0] + distances[d];
+          const fullDistance = acc[at][0] + neighbours[d];
 
           if (!acc[d] || fullDistance < acc[d][0]) {
             return ({
@@ -62,9 +62,9 @@ export const dijkstra = (
         }, pathMap);
 
     const leastDistant =
-      Object.keys(distances)
+      Object.keys(neighbours)
         .reduce((acc, d) => (
-          distances[d] < acc.delta ? { name: d, delta: distances[d] } : acc
+          neighbours[d] < acc.delta ? { name: d, delta: neighbours[d] } : acc
         ), { name: '', delta: Infinity });
 
     return _dijkstra(newMap, leastDistant.name, [ ...visited, at ]);
