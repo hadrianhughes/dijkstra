@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/dijkstra/static/css/main.5f361e03.chunk.css",
-    "main.js": "/dijkstra/static/js/main.f813ec8a.chunk.js",
-    "main.js.map": "/dijkstra/static/js/main.f813ec8a.chunk.js.map",
+    "main.js": "/dijkstra/static/js/main.2adcfb82.chunk.js",
+    "main.js.map": "/dijkstra/static/js/main.2adcfb82.chunk.js.map",
     "runtime-main.js": "/dijkstra/static/js/runtime-main.0b004a9d.js",
     "runtime-main.js.map": "/dijkstra/static/js/runtime-main.0b004a9d.js.map",
-    "static/js/2.8b9fcd38.chunk.js": "/dijkstra/static/js/2.8b9fcd38.chunk.js",
-    "static/js/2.8b9fcd38.chunk.js.map": "/dijkstra/static/js/2.8b9fcd38.chunk.js.map",
+    "static/js/2.4e53340d.chunk.js": "/dijkstra/static/js/2.4e53340d.chunk.js",
+    "static/js/2.4e53340d.chunk.js.map": "/dijkstra/static/js/2.4e53340d.chunk.js.map",
     "index.html": "/dijkstra/index.html",
-    "precache-manifest.969474f561da90f37b0bb62f4d8943a7.js": "/dijkstra/precache-manifest.969474f561da90f37b0bb62f4d8943a7.js",
+    "precache-manifest.40e69fc1952236f13d0fecc1fb977ade.js": "/dijkstra/precache-manifest.40e69fc1952236f13d0fecc1fb977ade.js",
     "service-worker.js": "/dijkstra/service-worker.js",
     "static/css/main.5f361e03.chunk.css.map": "/dijkstra/static/css/main.5f361e03.chunk.css.map",
-    "static/js/2.8b9fcd38.chunk.js.LICENSE.txt": "/dijkstra/static/js/2.8b9fcd38.chunk.js.LICENSE.txt"
+    "static/js/2.4e53340d.chunk.js.LICENSE.txt": "/dijkstra/static/js/2.4e53340d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0b004a9d.js",
-    "static/js/2.8b9fcd38.chunk.js",
+    "static/js/2.4e53340d.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.f813ec8a.chunk.js"
+    "static/js/main.2adcfb82.chunk.js"
   ]
 }
